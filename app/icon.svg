@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 520">
+  <!-- BC shield icon — standalone favicon (no external references) -->
+  <path d="M 40 56 L 440 56 L 440 300 C 440 392 360 470 240 506 C 120 470 40 392 40 300 Z"
+    fill="#0B1F3D" stroke="#C9A961" stroke-width="8"/>
+  <path d="M 60 76 L 420 76 L 420 296 C 420 378 350 446 240 482 C 130 446 60 378 60 296 Z"
+    fill="none" stroke="#C9A961" stroke-width="1.5" opacity=".55"/>
+  <g fill="#D9BD7C">
+    <rect x="138" y="200" width="50" height="160"/>
+    <rect x="194" y="120" width="70" height="240"/>
+    <rect x="270" y="170" width="46" height="190"/>
+  </g>
+  <g fill="#0B1F3D" opacity=".9">
+    <rect x="148" y="216" width="30" height="2"/><rect x="148" y="232" width="30" height="2"/>
+    <rect x="148" y="248" width="30" height="2"/><rect x="148" y="264" width="30" height="2"/>
+    <rect x="148" y="280" width="30" height="2"/><rect x="148" y="296" width="30" height="2"/>
+    <rect x="148" y="312" width="30" height="2"/><rect x="148" y="328" width="30" height="2"/>
+    <rect x="204" y="136" width="50" height="2"/><rect x="204" y="152" width="50" height="2"/>
+    <rect x="204" y="168" width="50" height="2"/><rect x="204" y="184" width="50" height="2"/>
+    <rect x="204" y="200" width="50" height="2"/><rect x="204" y="216" width="50" height="2"/>
+    <rect x="204" y="232" width="50" height="2"/><rect x="204" y="248" width="50" height="2"/>
+    <rect x="204" y="264" width="50" height="2"/><rect x="204" y="280" width="50" height="2"/>
+    <rect x="204" y="296" width="50" height="2"/><rect x="204" y="312" width="50" height="2"/>
+    <rect x="204" y="328" width="50" height="2"/>
+    <rect x="278" y="184" width="30" height="2"/><rect x="278" y="200" width="30" height="2"/>
+    <rect x="278" y="216" width="30" height="2"/><rect x="278" y="232" width="30" height="2"/>
+    <rect x="278" y="248" width="30" height="2"/><rect x="278" y="264" width="30" height="2"/>
+    <rect x="278" y="280" width="30" height="2"/><rect x="278" y="296" width="30" height="2"/>
+    <rect x="278" y="312" width="30" height="2"/><rect x="278" y="328" width="30" height="2"/>
+  </g>
+  <g stroke="#E8D29B" fill="none" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="110,388 168,348 220,366 272,310 332,250 376,200"/>
+  </g>
+  <polygon points="362,184 400,180 392,220" fill="#E8D29B"/>
+  <rect x="90" y="402" width="300" height="6" fill="#C9A961"/>
+</svg>
