@@ -5,6 +5,7 @@ import { StatsCounter } from "@/components/home/StatsCounter";
 import { WhyChooseUs } from "@/components/home/WhyChooseUs";
 import { ProcessSection } from "@/components/home/ProcessSection";
 import { CTABanner } from "@/components/home/CTABanner";
+import { Testimonials } from "@/components/home/Testimonials";
 
 export const metadata: Metadata = {
   title: "Construction Cost Estimating Services | Bid Count Estimation",
@@ -22,6 +23,7 @@ export default function HomePage() {
       <ServicesOverview />
       <StatsCounter />
       <WhyChooseUs />
+      <Testimonials />
       <ProcessSection />
       <CTABanner />
     </>
