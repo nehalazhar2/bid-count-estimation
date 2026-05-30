@@ -1,6 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { CheckCircle } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { HeroForm } from "@/components/home/HeroForm";
 
 const highlights = [
@@ -9,20 +12,37 @@ const highlights = [
   "All Trades Covered",
 ];
 
+const ease = [0.22, 1, 0.36, 1] as const;
+
 export function Hero() {
+  const { scrollY } = useScroll();
+  const bgY = useTransform(scrollY, [0, 700], [0, 180]);
+  const bgScale = useTransform(scrollY, [0, 700], [1, 1.08]);
+  const overlayOpacity = useTransform(scrollY, [0, 400], [0, 0.25]);
+
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Background image */}
-      <div className="absolute inset-0 z-0">
-        <Image
-          src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1920&q=80"
-          alt="Construction site with workers and cranes at sunset"
-          fill
-          className="object-cover"
-          priority
-          sizes="100vw"
-        />
+      {/* Parallax background */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <motion.div
+          style={{ y: bgY, scale: bgScale }}
+          className="absolute inset-0 origin-center"
+        >
+          <Image
+            src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1920&q=80"
+            alt="Construction site with workers and cranes at sunset"
+            fill
+            className="object-cover"
+            priority
+            sizes="100vw"
+          />
+        </motion.div>
         <div className="absolute inset-0 bg-gradient-to-r from-[#0B1F3D]/95 via-[#0B1F3D]/80 to-[#0B1F3D]/60" />
+        {/* Extra scroll-driven darkening */}
+        <motion.div
+          style={{ opacity: overlayOpacity }}
+          className="absolute inset-0 bg-[#0B1F3D]"
+        />
       </div>
 
       {/* Content */}
@@ -31,44 +51,73 @@ export function Hero() {
 
           {/* Left — text */}
           <div>
-            <span className="inline-block text-[#C9A961] text-sm font-semibold tracking-[0.15em] uppercase mb-6 border border-[#C9A961]/30 px-4 py-1.5 rounded-full">
+            <motion.span
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, ease, delay: 0.1 }}
+              className="inline-block text-[#C9A961] text-sm font-semibold tracking-[0.15em] uppercase mb-6 border border-[#C9A961]/30 px-4 py-1.5 rounded-full"
+            >
               Nationwide Construction Estimating
-            </span>
+            </motion.span>
 
-            <h1
+            <motion.h1
+              initial={{ opacity: 0, y: 28 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease, delay: 0.22 }}
               className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-[1.05] mb-6"
               style={{ fontFamily: "var(--font-playfair)" }}
             >
               Win More Bids with{" "}
               <span className="text-[#C9A961] italic">Precision</span>{" "}
               Estimates
-            </h1>
+            </motion.h1>
 
-            <p className="text-lg text-white/75 leading-relaxed mb-8 max-w-lg">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, ease, delay: 0.38 }}
+              className="text-lg text-white/75 leading-relaxed mb-8 max-w-lg"
+            >
               Accurate construction cost estimates, quantity takeoffs, and bid packages
               delivered in 24–48 hours — helping contractors compete and win across all
               50 states.
-            </p>
+            </motion.p>
 
-            <ul className="flex flex-wrap gap-x-6 gap-y-2 mb-10">
+            <motion.ul
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, ease, delay: 0.5 }}
+              className="flex flex-wrap gap-x-6 gap-y-2 mb-10"
+            >
               {highlights.map((item) => (
                 <li key={item} className="flex items-center gap-2 text-white/80 text-sm">
                   <CheckCircle className="w-4 h-4 text-[#C9A961] shrink-0" />
                   {item}
                 </li>
               ))}
-            </ul>
+            </motion.ul>
 
-            <Link
-              href="/services"
-              className="inline-flex items-center gap-2 border border-white/30 hover:border-white/60 text-white/80 hover:text-white text-sm font-medium px-5 py-2.5 rounded-lg transition-all hover:bg-white/5"
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, ease, delay: 0.62 }}
             >
-              Explore Our Services
-            </Link>
+              <Link
+                href="/services"
+                className="inline-flex items-center gap-2 border border-white/30 hover:border-white/60 text-white/80 hover:text-white text-sm font-medium px-5 py-2.5 rounded-lg transition-all hover:bg-white/5"
+              >
+                Explore Our Services
+              </Link>
+            </motion.div>
           </div>
 
           {/* Right — quick quote form */}
-          <div className="w-full">
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.75, ease, delay: 0.35 }}
+            className="w-full"
+          >
             <div className="bg-[#0B1F3D]/70 backdrop-blur-md border border-white/10 rounded-2xl p-7 shadow-2xl">
               <div className="mb-5">
                 <h2
@@ -83,7 +132,7 @@ export function Hero() {
               </div>
               <HeroForm />
             </div>
-          </div>
+          </motion.div>
 
         </div>
       </div>

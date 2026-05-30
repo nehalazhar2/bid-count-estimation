@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { MapPin, Clock, Wrench, DollarSign, ArrowLeft, CheckCircle, ArrowRight } from "lucide-react";
 import { projects, getProjectBySlug } from "@/lib/projects";
 import { CTABanner } from "@/components/home/CTABanner";
+import { FadeUp, SlideIn, StaggerContainer, StaggerItem } from "@/components/motion";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -12,8 +13,12 @@ export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
 }
 
-export async function generateMetadata(props: PageProps<"/portfolio/[slug]">): Promise<Metadata> {
-  const { slug } = await props.params;
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
   const project = getProjectBySlug(slug);
   if (!project) return {};
 
@@ -37,8 +42,12 @@ const typeColors: Record<string, string> = {
   Industrial: "bg-orange-100 text-orange-800",
 };
 
-export default async function ProjectDetailPage(props: PageProps<"/portfolio/[slug]">) {
-  const { slug } = await props.params;
+export default async function ProjectDetailPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
   const project = getProjectBySlug(slug);
 
   if (!project) notFound();
@@ -126,6 +135,7 @@ export default async function ProjectDetailPage(props: PageProps<"/portfolio/[sl
           <div className="lg:grid lg:grid-cols-3 lg:gap-16">
             {/* Left: narrative */}
             <div className="lg:col-span-2 space-y-10">
+              <FadeUp>
               <div>
                 <h2
                   className="text-2xl font-bold text-[#0B1F3D] mb-4"
@@ -135,7 +145,9 @@ export default async function ProjectDetailPage(props: PageProps<"/portfolio/[sl
                 </h2>
                 <p className="text-gray-600 leading-relaxed">{project.challenge}</p>
               </div>
+              </FadeUp>
 
+              <FadeUp delay={0.1}>
               <div>
                 <h2
                   className="text-2xl font-bold text-[#0B1F3D] mb-4"
@@ -145,7 +157,9 @@ export default async function ProjectDetailPage(props: PageProps<"/portfolio/[sl
                 </h2>
                 <p className="text-gray-600 leading-relaxed">{project.solution}</p>
               </div>
+              </FadeUp>
 
+              <FadeUp delay={0.15}>
               <div>
                 <h2
                   className="text-2xl font-bold text-[#0B1F3D] mb-4"
@@ -161,6 +175,7 @@ export default async function ProjectDetailPage(props: PageProps<"/portfolio/[sl
                   </p>
                 </div>
               </div>
+              </FadeUp>
 
               {/* Back nav */}
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 pt-4 border-t border-gray-100">
@@ -185,7 +200,8 @@ export default async function ProjectDetailPage(props: PageProps<"/portfolio/[sl
             </div>
 
             {/* Right: sticky card */}
-            <aside className="mt-10 lg:mt-0">
+            <SlideIn direction="right" className="mt-10 lg:mt-0">
+            <aside>
               <div className="lg:sticky lg:top-28 space-y-6">
                 {/* Services provided */}
                 <div className="bg-[#FAF6EC] rounded-2xl p-6 border border-[#D9CFB8]">
@@ -245,6 +261,7 @@ export default async function ProjectDetailPage(props: PageProps<"/portfolio/[sl
                 </div>
               </div>
             </aside>
+            </SlideIn>
           </div>
         </div>
       </section>

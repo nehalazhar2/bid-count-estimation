@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { ProjectGrid } from "@/components/portfolio/ProjectGrid";
 import { CTABanner } from "@/components/home/CTABanner";
+import { FadeUp } from "@/components/motion";
 
 export const metadata: Metadata = {
   title: "Portfolio — Construction Estimating Projects Across All 50 States",
@@ -31,7 +32,7 @@ export default function PortfolioPage() {
             sizes="100vw"
           />
         </div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <FadeUp className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <span className="inline-block text-[#C9A961] text-sm font-semibold tracking-[0.15em] uppercase mb-4 border border-[#C9A961]/30 px-4 py-1.5 rounded-full">
             Portfolio
           </span>
@@ -45,7 +46,7 @@ export default function PortfolioPage() {
             From small commercial renovations to multi-million dollar developments,
             we&apos;ve helped contractors across the country compete and win.
           </p>
-        </div>
+        </FadeUp>
       </section>
 
       {/* Filter + Grid */}

@@ -148,11 +148,11 @@ interface LockupProps {
 export function BcWordmark({ dark = true, className }: LockupProps) {
   return (
     <div className={cn("flex items-center gap-3", className)}>
-      <BcMark variant={dark ? "primary" : "icon"} className="w-8 h-9" />
+      <BcMark variant={dark ? "primary" : "icon"} className="w-11 h-12" />
       <div className="flex flex-col leading-none">
         <span
           className={cn(
-            "font-bold text-sm tracking-[0.06em]",
+            "font-bold text-base tracking-[0.06em]",
             dark ? "text-white" : "text-[#0B1F3D]"
           )}
           style={{ fontFamily: "var(--font-playfair)" }}
@@ -161,7 +161,7 @@ export function BcWordmark({ dark = true, className }: LockupProps) {
         </span>
         <span
           className={cn(
-            "text-[10px] tracking-[0.22em] uppercase",
+            "text-[11px] tracking-[0.22em] uppercase",
             dark ? "text-[#C9A961]" : "text-[#A88547]"
           )}
           style={{ fontFamily: "'JetBrains Mono', monospace" }}

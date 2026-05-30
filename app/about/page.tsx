@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Target, Users, Award, ArrowRight } from "lucide-react";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { CTABanner } from "@/components/home/CTABanner";
+import { FadeUp, SlideIn, StaggerContainer, StaggerItem, ScaleIn } from "@/components/motion";
 
 export const metadata: Metadata = {
   title: "About Us — Construction Estimation Company Serving All 50 States",
@@ -77,7 +78,7 @@ export default function AboutPage() {
             sizes="100vw"
           />
         </div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <FadeUp className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <span className="inline-block text-[#C9A961] text-sm font-semibold tracking-[0.15em] uppercase mb-4 border border-[#C9A961]/30 px-4 py-1.5 rounded-full">
             About Us
           </span>
@@ -91,37 +92,41 @@ export default function AboutPage() {
             We founded Bid Count Estimation with one goal: give every contractor access to
             professional-grade cost estimating, regardless of team size.
           </p>
-        </div>
+        </FadeUp>
       </section>
 
       {/* Story */}
       <section className="py-20 lg:py-28 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <div className="relative">
-              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
-                <Image
-                  src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=900&q=80"
-                  alt="Modern commercial building — a project type we estimate"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
-              </div>
-              <div className="absolute -bottom-6 -left-6 bg-[#C9A961] rounded-2xl p-5 shadow-2xl">
-                <div
-                  className="text-3xl font-bold text-[#0B1F3D]"
-                  style={{ fontFamily: "var(--font-playfair)" }}
-                >
-                  2009
+            <SlideIn direction="left">
+              <div className="relative">
+                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
+                  <Image
+                    src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=900&q=80"
+                    alt="Modern commercial building — a project type we estimate"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
                 </div>
-                <div className="text-xs text-[#0B1F3D]/70 tracking-wide uppercase mt-1">
-                  Founded
-                </div>
+                <ScaleIn delay={0.35}>
+                  <div className="absolute -bottom-6 -left-6 bg-[#C9A961] rounded-2xl p-5 shadow-2xl">
+                    <div
+                      className="text-3xl font-bold text-[#0B1F3D]"
+                      style={{ fontFamily: "var(--font-playfair)" }}
+                    >
+                      2009
+                    </div>
+                    <div className="text-xs text-[#0B1F3D]/70 tracking-wide uppercase mt-1">
+                      Founded
+                    </div>
+                  </div>
+                </ScaleIn>
               </div>
-            </div>
+            </SlideIn>
 
-            <div>
+            <SlideIn direction="right" delay={0.1}>
               <SectionHeader
                 eyebrow="Our Story"
                 title="15 Years of Estimating Excellence"
@@ -146,7 +151,7 @@ export default function AboutPage() {
                   industrial developments. No project is too small, and no deadline is too tight.
                 </p>
               </div>
-            </div>
+            </SlideIn>
           </div>
         </div>
       </section>
@@ -154,70 +159,72 @@ export default function AboutPage() {
       {/* Values */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeader
-            eyebrow="Our Values"
-            title="What Drives Our Work"
-            centered
-          />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <FadeUp>
+            <SectionHeader
+              eyebrow="Our Values"
+              title="What Drives Our Work"
+              centered
+            />
+          </FadeUp>
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {values.map((value) => {
               const Icon = value.icon;
               return (
-                <div
-                  key={value.title}
-                  className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-md transition-shadow text-center"
-                >
-                  <div className="w-14 h-14 rounded-2xl bg-[#0B1F3D] flex items-center justify-center mx-auto mb-5">
-                    <Icon className="w-7 h-7 text-[#C9A961]" />
+                <StaggerItem key={value.title}>
+                  <div className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-md transition-shadow text-center h-full">
+                    <div className="w-14 h-14 rounded-2xl bg-[#0B1F3D] flex items-center justify-center mx-auto mb-5">
+                      <Icon className="w-7 h-7 text-[#C9A961]" />
+                    </div>
+                    <h3
+                      className="text-xl font-bold text-[#0B1F3D] mb-3"
+                      style={{ fontFamily: "var(--font-playfair)" }}
+                    >
+                      {value.title}
+                    </h3>
+                    <p className="text-gray-500 text-sm leading-relaxed">
+                      {value.description}
+                    </p>
                   </div>
-                  <h3
-                    className="text-xl font-bold text-[#0B1F3D] mb-3"
-                    style={{ fontFamily: "var(--font-playfair)" }}
-                  >
-                    {value.title}
-                  </h3>
-                  <p className="text-gray-500 text-sm leading-relaxed">
-                    {value.description}
-                  </p>
-                </div>
+                </StaggerItem>
               );
             })}
-          </div>
+          </StaggerContainer>
         </div>
       </section>
 
       {/* Differentiators */}
       <section className="py-20 bg-[#0B1F3D]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeader
-            eyebrow="By the Numbers"
-            title="Why Contractors Trust Us"
-            centered
-            light
-          />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <FadeUp>
+            <SectionHeader
+              eyebrow="By the Numbers"
+              title="Why Contractors Trust Us"
+              centered
+              light
+            />
+          </FadeUp>
+          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {differentiators.map((d) => (
-              <div
-                key={d.label}
-                className="bg-white/5 border border-white/10 rounded-2xl p-6 text-center hover:bg-white/10 transition-colors"
-              >
-                <div
-                  className="text-4xl font-bold text-[#C9A961] mb-1"
-                  style={{ fontFamily: "var(--font-playfair)" }}
-                >
-                  {d.number}
+              <StaggerItem key={d.label}>
+                <div className="bg-white/5 border border-white/10 rounded-2xl p-6 text-center hover:bg-white/10 transition-colors h-full">
+                  <div
+                    className="text-4xl font-bold text-[#C9A961] mb-1"
+                    style={{ fontFamily: "var(--font-playfair)" }}
+                  >
+                    {d.number}
+                  </div>
+                  <div className="text-white font-semibold text-sm mb-2">{d.label}</div>
+                  <p className="text-white/50 text-xs leading-relaxed">{d.description}</p>
                 </div>
-                <div className="text-white font-semibold text-sm mb-2">{d.label}</div>
-                <p className="text-white/50 text-xs leading-relaxed">{d.description}</p>
-              </div>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </section>
 
       {/* Team section */}
       <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <FadeUp className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center">
             <SectionHeader
               eyebrow="Our Team"
@@ -233,7 +240,7 @@ export default function AboutPage() {
               <ArrowRight className="w-5 h-5" />
             </Link>
           </div>
-        </div>
+        </FadeUp>
       </section>
 
       <CTABanner />

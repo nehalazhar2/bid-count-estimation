@@ -4,6 +4,7 @@ import Link from "next/link";
 import { CheckCircle, ArrowRight } from "lucide-react";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { CTABanner } from "@/components/home/CTABanner";
+import { FadeUp, SlideIn, StaggerContainer, StaggerItem } from "@/components/motion";
 
 export const metadata: Metadata = {
   title: "Construction Estimating Services — Cost Estimating, Takeoffs & Bid Packages",
@@ -145,7 +146,7 @@ export default function ServicesPage() {
             sizes="100vw"
           />
         </div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <FadeUp className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <span className="inline-block text-[#C9A961] text-sm font-semibold tracking-[0.15em] uppercase mb-4 border border-[#C9A961]/30 px-4 py-1.5 rounded-full">
             Our Services
           </span>
@@ -159,82 +160,87 @@ export default function ServicesPage() {
             From detailed cost estimates to complete bid packages — we provide every service
             a contractor needs to compete and win more work.
           </p>
-        </div>
+        </FadeUp>
       </section>
 
       {/* Services */}
       <section className="py-16 lg:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="space-y-24">
-            {services.map((service, idx) => (
-              <article
-                key={service.id}
-                id={service.id}
-                className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${
-                  idx % 2 !== 0 ? "lg:[&>*:first-child]:order-2" : ""
-                }`}
-              >
-                {/* Image */}
-                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
-                  <Image
-                    src={service.image}
-                    alt={service.imageAlt}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
-                </div>
-
-                {/* Content */}
-                <div>
-                  <span className="inline-block text-[#C9A961] text-xs font-semibold tracking-[0.15em] uppercase mb-3 bg-[#C9A961]/10 px-3 py-1 rounded-full">
-                    {service.subtitle}
-                  </span>
-                  <h2
-                    className="text-3xl font-bold text-[#0B1F3D] mb-4"
-                    style={{ fontFamily: "var(--font-playfair)" }}
-                  >
-                    {service.title}
-                  </h2>
-                  <p className="text-gray-600 leading-relaxed mb-6">
-                    {service.description}
-                  </p>
-
-                  <div className="mb-6">
-                    <h3 className="text-sm font-semibold text-[#0B1F3D] uppercase tracking-wide mb-3">
-                      What&apos;s Included
-                    </h3>
-                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                      {service.includes.map((item) => (
-                        <li key={item} className="flex items-start gap-2 text-sm text-gray-600">
-                          <CheckCircle className="w-4 h-4 text-[#C9A961] shrink-0 mt-0.5" />
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className="flex flex-wrap gap-4 text-sm text-gray-500 mb-6 bg-gray-50 rounded-xl p-4">
-                    <div>
-                      <span className="font-semibold text-[#0B1F3D]">Deliverable: </span>
-                      {service.deliverables}
+            {services.map((service, idx) => {
+              const isEven = idx % 2 === 0;
+              return (
+                <article
+                  key={service.id}
+                  id={service.id}
+                  className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${
+                    !isEven ? "lg:[&>*:first-child]:order-2" : ""
+                  }`}
+                >
+                  {/* Image */}
+                  <SlideIn direction={isEven ? "left" : "right"}>
+                    <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
+                      <Image
+                        src={service.image}
+                        alt={service.imageAlt}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                      />
                     </div>
-                    <div>
-                      <span className="font-semibold text-[#0B1F3D]">Turnaround: </span>
-                      {service.turnaround}
-                    </div>
-                  </div>
+                  </SlideIn>
 
-                  <Link
-                    href="/contact"
-                    className="inline-flex items-center gap-2 bg-[#C9A961] hover:bg-[#D9BD7C] text-[#0B1F3D] font-bold px-6 py-3 rounded-lg transition-colors text-sm"
-                  >
-                    Get a Quote for This Service
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </div>
-              </article>
-            ))}
+                  {/* Content */}
+                  <SlideIn direction={isEven ? "right" : "left"} delay={0.1}>
+                    <span className="inline-block text-[#C9A961] text-xs font-semibold tracking-[0.15em] uppercase mb-3 bg-[#C9A961]/10 px-3 py-1 rounded-full">
+                      {service.subtitle}
+                    </span>
+                    <h2
+                      className="text-3xl font-bold text-[#0B1F3D] mb-4"
+                      style={{ fontFamily: "var(--font-playfair)" }}
+                    >
+                      {service.title}
+                    </h2>
+                    <p className="text-gray-600 leading-relaxed mb-6">
+                      {service.description}
+                    </p>
+
+                    <div className="mb-6">
+                      <h3 className="text-sm font-semibold text-[#0B1F3D] uppercase tracking-wide mb-3">
+                        What&apos;s Included
+                      </h3>
+                      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        {service.includes.map((item) => (
+                          <li key={item} className="flex items-start gap-2 text-sm text-gray-600">
+                            <CheckCircle className="w-4 h-4 text-[#C9A961] shrink-0 mt-0.5" />
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div className="flex flex-wrap gap-4 text-sm text-gray-500 mb-6 bg-gray-50 rounded-xl p-4">
+                      <div>
+                        <span className="font-semibold text-[#0B1F3D]">Deliverable: </span>
+                        {service.deliverables}
+                      </div>
+                      <div>
+                        <span className="font-semibold text-[#0B1F3D]">Turnaround: </span>
+                        {service.turnaround}
+                      </div>
+                    </div>
+
+                    <Link
+                      href="/contact"
+                      className="inline-flex items-center gap-2 bg-[#C9A961] hover:bg-[#D9BD7C] text-[#0B1F3D] font-bold px-6 py-3 rounded-lg transition-colors text-sm"
+                    >
+                      Get a Quote for This Service
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
+                  </SlideIn>
+                </article>
+              );
+            })}
           </div>
         </div>
       </section>

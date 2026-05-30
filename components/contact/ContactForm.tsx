@@ -15,12 +15,8 @@ export function ContactForm() {
 
   async function handleSubmit(formData: FormData) {
     setState("loading");
-    try {
-      await submitContact(formData);
-      setState("success");
-    } catch {
-      setState("error");
-    }
+    const result = await submitContact(formData);
+    setState(result.success ? "success" : "error");
   }
 
   if (state === "success") {

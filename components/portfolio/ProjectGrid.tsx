@@ -4,6 +4,8 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { MapPin, DollarSign, ArrowRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { StaggerContainer, StaggerItem } from "@/components/motion";
 import { projects } from "@/lib/projects";
 import type { ProjectType } from "@/lib/projects";
 
@@ -43,57 +45,70 @@ export function ProjectGrid() {
       </div>
 
       {/* Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filtered.map((project) => (
-          <Link
-            key={project.slug}
-            href={`/portfolio/${project.slug}`}
-            className="group rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 bg-white flex flex-col"
-          >
-            <div className="relative aspect-[16/10] overflow-hidden">
-              <Image
-                src={project.image}
-                alt={project.imageAlt}
-                fill
-                className="object-cover group-hover:scale-105 transition-transform duration-500"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              />
-              <div className="absolute top-3 left-3">
-                <span
-                  className={`text-xs font-semibold px-2.5 py-1 rounded-full ${typeColors[project.type]}`}
-                >
-                  {project.type}
-                </span>
-              </div>
-            </div>
-            <div className="p-5 flex flex-col flex-1">
-              <h3
-                className="font-bold text-[#0B1F3D] text-base mb-2"
-                style={{ fontFamily: "var(--font-playfair)" }}
+      <StaggerContainer
+        key={active}
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        stagger={0.08}
+        delay={0}
+      >
+        <AnimatePresence mode="wait">
+          {filtered.map((project) => (
+            <StaggerItem key={project.slug}>
+              <motion.div
+                whileHover={{ y: -6, boxShadow: "0 20px 40px rgba(11,31,61,0.12)" }}
+                transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
               >
-                {project.title}
-              </h3>
-              <div className="flex items-center gap-4 text-xs text-gray-500 mb-3">
-                <span className="flex items-center gap-1">
-                  <MapPin className="w-3 h-3 text-[#C9A961]" />
-                  {project.location}
-                </span>
-                <span className="flex items-center gap-1">
-                  <DollarSign className="w-3 h-3 text-[#C9A961]" />
-                  Est. {project.estimatedValue}
-                </span>
-              </div>
-              <p className="text-gray-500 text-sm leading-relaxed line-clamp-3 flex-1">
-                {project.scope}
-              </p>
-              <div className="mt-4 flex items-center gap-1 text-sm font-semibold text-[#C9A961] group-hover:gap-2 transition-all">
-                View Case Study
-                <ArrowRight className="w-4 h-4" />
-              </div>
-            </div>
-          </Link>
-        ))}
-      </div>
+                <Link
+                  href={`/portfolio/${project.slug}`}
+                  className="group rounded-2xl overflow-hidden border border-gray-100 bg-white flex flex-col h-full"
+                >
+                  <div className="relative aspect-[16/10] overflow-hidden">
+                    <Image
+                      src={project.image}
+                      alt={project.imageAlt}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
+                    <div className="absolute top-3 left-3">
+                      <span
+                        className={`text-xs font-semibold px-2.5 py-1 rounded-full ${typeColors[project.type]}`}
+                      >
+                        {project.type}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="p-5 flex flex-col flex-1">
+                    <h3
+                      className="font-bold text-[#0B1F3D] text-base mb-2"
+                      style={{ fontFamily: "var(--font-playfair)" }}
+                    >
+                      {project.title}
+                    </h3>
+                    <div className="flex items-center gap-4 text-xs text-gray-500 mb-3">
+                      <span className="flex items-center gap-1">
+                        <MapPin className="w-3 h-3 text-[#C9A961]" />
+                        {project.location}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <DollarSign className="w-3 h-3 text-[#C9A961]" />
+                        Est. {project.estimatedValue}
+                      </span>
+                    </div>
+                    <p className="text-gray-500 text-sm leading-relaxed line-clamp-3 flex-1">
+                      {project.scope}
+                    </p>
+                    <div className="mt-4 flex items-center gap-1 text-sm font-semibold text-[#C9A961] group-hover:gap-2 transition-all">
+                      View Case Study
+                      <ArrowRight className="w-4 h-4" />
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+            </StaggerItem>
+          ))}
+        </AnimatePresence>
+      </StaggerContainer>
     </>
   );
 }

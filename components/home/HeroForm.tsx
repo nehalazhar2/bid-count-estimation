@@ -1,22 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowRight, CheckCircle, Loader2 } from "lucide-react";
+import { ArrowRight, CheckCircle, Loader2, AlertCircle } from "lucide-react";
 import { submitContact } from "@/app/contact/actions";
 
-type State = "idle" | "loading" | "success";
+type State = "idle" | "loading" | "success" | "error";
 
 export function HeroForm() {
   const [state, setState] = useState<State>("idle");
 
   async function handleSubmit(formData: FormData) {
     setState("loading");
-    try {
-      await submitContact(formData);
-      setState("success");
-    } catch {
-      setState("idle");
-    }
+    const result = await submitContact(formData);
+    setState(result.success ? "success" : "error");
   }
 
   if (state === "success") {
@@ -108,6 +104,13 @@ export function HeroForm() {
           <option value="renovation" className="bg-[#0B1F3D]">Renovation / Remodel</option>
         </select>
       </div>
+
+      {state === "error" && (
+        <div className="flex items-center gap-2 text-red-300 text-xs bg-red-500/20 border border-red-400/30 px-3 py-2 rounded-lg">
+          <AlertCircle className="w-4 h-4 shrink-0" />
+          Something went wrong. Please try again or email us directly.
+        </div>
+      )}
 
       <button
         type="submit"
